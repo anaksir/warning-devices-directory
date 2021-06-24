@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <form action="" method="post" name="filter_form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Filter!">
+        </form>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="result">
+            <p id='total-count'></p>
+            <table id="devices-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Radius</th>
+                    <tr>
+                </thead>
+                <tbody class="table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="nav-links">
+            <a href="#" id="link-prev">Prev</a>
+            <a href="#" id="link-next">Next</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+    {% load static %}
+    <script src="{% static 'catalog/js/get_devices.js' %}"></script>
+{% endblock %}
