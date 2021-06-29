@@ -4,7 +4,7 @@ function clearTbody(tbody) {
 };
 
 function createTbodyRow(tbody, data) {
-    let keys = ['id', 'name', 'device_type', 'radius', 'coordinates', 'address'];
+    let keys = ['name', 'device_type', 'radius', 'coordinates', 'address'];
     let newRow = tbody.insertRow();
     for (let key of keys) {
         let newCell = newRow.insertCell();

@@ -10,7 +10,7 @@ class DevicesView(generics.ListAPIView):
     '''
     Endpoint for list of all devices
     '''
-    queryset = Device.objects.all().order_by('id')
+    queryset = Device.objects.all().order_by('name')
     serializer_class = DeviceSerializer
     filter_backends = [
         dfrf.DjangoFilterBackend,
@@ -24,17 +24,3 @@ class DevicesView(generics.ListAPIView):
     }
     search_fields = ['name', 'address']
     pagination_class = MyPagination
-
-
-class NewDevicesView(generics.ListAPIView):
-    '''
-    New Endpoint for list of all devices without django-filters
-    '''
-    queryset = Device.objects.all().order_by('name')
-    serializer_class = DeviceSerializer
-    pagination_class = MyPagination
-
-    def get_queryset(self):
-        queryset = Device.objects.all()
-
-        return queryset
