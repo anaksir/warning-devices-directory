@@ -1,12 +1,15 @@
+"""Models descriptions for Catalog app."""
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Device(models.Model):
-    '''
-    Модель устройства оповещения
-    '''
+    """Model of Warning Device."""
+
     class DeviceType(models.TextChoices):
+        """Choices for device_type."""
+
         SIREN = ('SI', 'Siren')
         SPEAKER = ('SP', 'Speaker')
 
@@ -64,6 +67,7 @@ class Device(models.Model):
 
     @property
     def coordinates(self) -> str:
+        """Return combination of latitude and longitude."""
         return f'{self.latitude}, {self.longitude}'
 
     def __str__(self) -> str:

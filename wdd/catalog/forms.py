@@ -1,8 +1,12 @@
+"""Forms description for Catalog app."""
 from django import forms
+
 from .models import Device
 
 
 class DeviceFilterForm(forms.Form):
+    """Form for filter devices params."""
+
     min_radius = forms.IntegerField(
         required=False,
         help_text='integer in meters'

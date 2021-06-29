@@ -1,12 +1,15 @@
-from rest_framework import serializers
 from catalog.models import Device
+
+from rest_framework import serializers
 
 
 class DeviceSerializer(serializers.ModelSerializer):
     """
     Serializer for display a list of devices.
+
     Used in DevicesView.
     """
+
     coordinates = serializers.ReadOnlyField()
 
     class Meta:

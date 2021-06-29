@@ -1,10 +1,16 @@
+"""Custom managment command for Load a csv file into the database."""
+
 import csv
 from pathlib import Path
-from django.core.management import BaseCommand
+
 from catalog.models import Device
+
+from django.core.management import BaseCommand
 
 
 class Command(BaseCommand):
+    """Registrate command."""
+
     help = 'Load a csv file into the database'
 
     def add_arguments(self, parser):

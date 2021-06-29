@@ -1,4 +1,6 @@
+"""URL for Catalog app."""
 from django.urls import path
+
 from .views import DevicesView
 
 

@@ -1,9 +1,11 @@
-from rest_framework import generics
-from rest_framework import filters
-from django_filters import rest_framework as dfrf
-from .serializers import DeviceSerializer
-from .pagination import MyPagination
 from catalog.models import Device
+
+from django_filters import rest_framework as dfrf
+
+from rest_framework import filters, generics
+
+from .pagination import MyPagination
+from .serializers import DeviceSerializer
 
 
 class DevicesView(generics.ListAPIView):
