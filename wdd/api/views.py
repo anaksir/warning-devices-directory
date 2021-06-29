@@ -10,7 +10,7 @@ class DevicesView(generics.ListAPIView):
     '''
     Endpoint for list of all devices
     '''
-    queryset = Device.objects.all().order_by('name')
+    queryset = Device.objects.all().order_by('id')
     serializer_class = DeviceSerializer
     filter_backends = [
         dfrf.DjangoFilterBackend,
@@ -19,8 +19,11 @@ class DevicesView(generics.ListAPIView):
     filterset_fields = {
         'device_type': ['exact'],
         'radius': ['gte', 'lte'],
+        'latitude': ['gte', 'lte'],
+        'longitude': ['gte', 'lte'],
     }
-    search_fields = ['name', '@address']
+    search_fields = ['name', 'address']
+    pagination_class = MyPagination
 
 
 class NewDevicesView(generics.ListAPIView):

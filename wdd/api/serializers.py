@@ -11,7 +11,7 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Device
-        fields = ('name', 'device_type', 'radius', 'coordinates')
+        fields = ('name', 'device_type', 'radius', 'coordinates', 'address', 'id')
         extra_kwargs = {
             'device_type': {
                 'source': 'get_device_type_display'

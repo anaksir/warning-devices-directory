@@ -5,26 +5,41 @@ from crispy_forms.layout import Layout, Submit, Row, Column, Fieldset
 
 
 class DeviceFilterForm(forms.Form):
-    min_radius = forms.IntegerField(required=False)
-    max_radius = forms.IntegerField(required=False)
+    min_radius = forms.IntegerField(
+        required=False,
+        help_text='integer in meters'
+    )
+    max_radius = forms.IntegerField(
+        required=False,
+        help_text='integer in meters'
+    )
 
     blank_choice = [('', '---------')]
     device_type = forms.ChoiceField(
         choices=blank_choice + Device.DeviceType.choices,
         required=False,
+        help_text='Select device type'
     )
     search = forms.CharField(
         required=False,
         help_text='Search in name and addess',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Search in name and addess fields'}
+            attrs={'placeholder': 'Search text'}
         )
     )
     upper_left_corner = forms.CharField(
+        help_text='Enter coordinates',
         required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'latitude, longitude'}
+        )
     )
     bottom_right_corner = forms.CharField(
         required=False,
+        help_text='Enter coordinates',
+        widget=forms.TextInput(
+            attrs={'placeholder': 'latitude, longitude'}
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -35,7 +50,7 @@ class DeviceFilterForm(forms.Form):
             Row(
                 Column(
                     Fieldset(
-                        'Radius filter',
+                        'Radius',
                         'min_radius',
                         'max_radius',
                     ),
@@ -43,7 +58,7 @@ class DeviceFilterForm(forms.Form):
                 ),
                 Column(
                     Fieldset(
-                        'Coordinates filter',
+                        'Coordinates',
                         'upper_left_corner',
                         'bottom_right_corner',
                     ),
@@ -51,10 +66,11 @@ class DeviceFilterForm(forms.Form):
                 ),
                 Column(
                     Fieldset(
-                        'Search filter',
+                        'Type filter',
+                        'device_type',
                         'search',
                     ),
-                    css_class='col-4',
+                    css_class='col-2',
                 ),
             ),
             Submit('submit', 'Get Devices'),
