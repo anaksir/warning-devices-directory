@@ -1,0 +1,95 @@
+{% extends "catalog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <form method="post" id="filter_form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-8 col-lg-3">
+                    <fieldset class="row">
+                        <legend>Radius filter</legend>
+                        <div class="col">
+                            {{ form.min_radius|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.max_radius|as_crispy_field }}
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-8 col-lg-5">
+                    <fieldset class="row">
+                        <legend>Coordinates filter</legend>
+                        <div class="col">
+                            {{ form.upper_left_corner|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.bottom_right_corner|as_crispy_field }}
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-8 col-lg-4">
+                    <fieldset class="row">
+                        <legend>Other</legend>
+                        <div class="col">
+                            {{ form.device_type|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.search|as_crispy_field }}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4 col-md-3 col-lg-2">
+                    <button type="submit" class="btn btn-primary">Get Devices</button>
+                </div>
+                <div class="col-4 col-md-3 col-lg-2">
+                    <button type="reset" class="btn btn-secondary">Reset filters</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row justify-content-between">
+    <div class="col-auto">
+        <a href="#" id="link-prev" class="link-disabled">Load Previous page</a>
+    </div>
+    <div id="devices-counter" class="col-auto">
+    </div>
+    <div class="col-auto">
+        <a href="#" id="link-next" class="link-disabled">Load Next page</a>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        <div class="result">
+            <table id="devices-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Radius</th>
+                        <th scope="col">Coordinates</th>
+                        <th scope="col">Address</th>
+                    <tr>
+                </thead>
+                <tbody class="table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr>
+
+{% endblock %}
+
+
+{% block script %}
+    {% load static %}
+    <script src="{% static 'catalog/js/devices.js' %}"></script>
+{% endblock %}
