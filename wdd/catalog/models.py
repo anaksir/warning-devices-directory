@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.contrib.postgres import indexes
 
 
 class Device(models.Model):
@@ -14,7 +13,8 @@ class Device(models.Model):
     name = models.CharField(
         max_length=20,
         unique=True,
-        help_text='Device name'
+        help_text='Device name',
+        db_index=True,
     )
 
     device_type = models.CharField(
@@ -55,14 +55,12 @@ class Device(models.Model):
 
     address = models.CharField(
         max_length=100,
+        db_index=True,
     )
 
     radius = models.PositiveIntegerField(
         help_text='Radius of coverage area (m)'
     )
-
-    class Meta:
-        indexes = [indexes.GinIndex(fields=['name', 'address'])]
 
     @property
     def coordinates(self) -> str:
