@@ -1,26 +1,18 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="row">
-    <div class="col">
-        <form action="" method="post" name="filter_form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Get Devices">
-        </form>
-        <hr>
-    </div>
-</div>
+        {% crispy form %}
 <div class="row">
     <div class="col">
         <div class="result">
-            <p id='total-count'></p>
-            <table id="devices-table">
-                <thead class="table-dark">
+            <p id="total-count"></p>
+            <table id="devices-table" class="table table-striped">
+                <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Radius</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Radius</th>
+                        <th scope="col">Coordinates</th>
                     <tr>
                 </thead>
                 <tbody class="table-body">

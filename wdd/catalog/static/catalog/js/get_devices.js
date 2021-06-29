@@ -1,42 +1,5 @@
-console.log("script!");
-
-const url = '/api/devices/';
-
-let tableBody = document.querySelector('.table-body');
-
-function configNavLinks(data) {
-    let linkNext = document.getElementById('link-next');
-    let linkPrev = document.getElementById('link-prev');
-    let urlPrev = data.previous 
-    if (urlPrev === null) {
-        linkPrev.style.display = 'none';
-    } else {
-        linkPrev.onclick = function(event) {
-            event.preventDefault();
-            getDevices(urlPrev).then(data => {
-                for (let deviceData of data.results){
-                    createTableContent(tableBody, deviceData);
-                }
-            });
-        };
-    };
-    let urlNext = data.next;
-    if (urlNext === null) {
-        linkPrev.style.display = 'none'
-    } else {
-        linkNext.onclick = function(event) {
-            event.preventDefault();
-            getDevices(urlNext).then(data => {
-                for (let deviceData of data.results){
-                    createTableContent(tableBody, deviceData);
-                }
-            });
-        };
-    };
-};
-
 function createTbodyRow(tbody, data) {
-    let keys = ['name', 'device_type', 'radius'];
+    let keys = ['name', 'device_type', 'radius', 'coordinates'];
     let newRow = tbody.insertRow();
     for (let key of keys) {
         let newCell = newRow.insertCell();
@@ -62,7 +25,6 @@ function createFilterUrl(formData) {
         urlElements.push('radius__gte=' + minRadius);
     };
     let result = url + '?' + urlElements.join('&');
-    console.log(result);
     return result
 }
 
@@ -75,17 +37,72 @@ function showPDeviceCount(count) {
     p.textContent = `Total Device count: ${count}`;
 }
 
-let form = document.forms.filter_form;
+// function configNavLinks(next, prev) {
+//     let nextLink = document.getElementById('link-next');
+//     let prevLink = document.getElementById('link-prev');
+//     if (next) {
+//         nextLink.addEventListener('click', makeTableContent, false);
+//     };
 
-form.onsubmit = async (evnt) => {
+// };
+
+async function nextLinkHandler(enent, url) {
+    clearTbody(tableBody);
+    let nextresponse = await fetch(url);
+    let nextjson = await nextresponse.json();
+    for (let device of nextjson.results) {
+        createTbodyRow(tableBody, device);
+    };
+    let nexturl2 = nextjson.next;
+
+};
+
+async function makeTableContent(evnt) {
     evnt.preventDefault();
     clearTbody(tableBody);
-    let formData = new FormData(form)
-    let url = createFilterUrl(formData)
+    let formData = new FormData(form);
+    let url = createFilterUrl(formData);
+
     let response = await fetch(url);
     let json = await response.json();
     showPDeviceCount(json.count);
+
     for (let device of json.results) {
         createTbodyRow(tableBody, device);
     };
+    if (json.previous) {
+        let prevLink = document.getElementById('link-prev');
+        prevLink.classList.remove('link-isabled');
+    };
+    let nextUrl = json.next;
+    if (nextUrl) {
+        let linkHandler = async (enent, url) => {
+            clearTbody(tableBody);
+            let nextresponse = await fetch(url);
+            let nextjson = await nextresponse.json();
+            for (let device of nextjson.results) {
+                createTbodyRow(tableBody, device);
+            };
+            let nxtUrl = nextjson.next;
+            let nextLink = document.getElementById('link-next');
+            nextLink.onclick = (envt) => linkHandler(envt, nxtUrl);
+        };
+        let nextLink = document.getElementById('link-next');
+        nextLink.classList.remove('link-isabled');
+        nextLink.onclick = (envt) => linkHandler(envt, nextUrl);
+    } else {
+        nextLink.classList.add('link-isabled');
+    };
+
 };
+
+let form = document.forms.filter_form;
+let tableBody = document.querySelector('.table-body');
+
+form.onsubmit = makeTableContent;
+
+// let prevLink = document.getElementById('link-prev');
+// prevLink.classList.remove('link-isabled');
+// prevLink.onclick = () => {
+//     alert('click!!!');
+// };

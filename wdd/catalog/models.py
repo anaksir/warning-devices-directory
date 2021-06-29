@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.postgres import indexes
 
 
 class Device(models.Model):
@@ -60,8 +61,11 @@ class Device(models.Model):
         help_text='Radius of coverage area (m)'
     )
 
+    class Meta:
+        indexes = [indexes.GinIndex(fields=['name', 'address'])]
+
     @property
-    def coorcoordinates(self) -> str:
+    def coordinates(self) -> str:
         return f'{self.latitude}, {self.longitude}'
 
     def __str__(self) -> str:
