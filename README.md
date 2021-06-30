@@ -28,6 +28,6 @@
 ## Использованные пакеты:
 + Django
 + djangorestframework
-+ django-filter (для фидьтрации результатов при запросе к api)
++ django-filter (для фильтрации результатов при запросе к api)
 + django-crispy-forms и crispy-bootstrap5 (для рендера форм в стилях bootstrap5)
 + psycopg2-binary (для подключения PostgreSQL)

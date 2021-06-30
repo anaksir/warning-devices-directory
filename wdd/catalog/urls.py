@@ -7,5 +7,5 @@ from .views import DevicesView
 app_name = 'catalog'
 
 urlpatterns = [
-    path('devices/', DevicesView.as_view(), name='devices'),
+    path('', DevicesView.as_view(), name='devices'),
 ]
