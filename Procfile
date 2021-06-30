@@ -1,1 +1,1 @@
-web: gunicorn wdd/wdd.wsgi --log-file -
+web: sh -c 'cd ./wdd/ && exec gunicorn wdd.wsgi --log-file -'
