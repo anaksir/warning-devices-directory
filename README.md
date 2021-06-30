@@ -1,7 +1,8 @@
 # Warning devices directory
 
 ## Что это:
-Небольшое веб-приложение на Django, обеспечивающее возможность работы со справочником устройств оповещения:
+Небольшое веб-приложение на Django, обеспечивающее возможность работы со справочником устройств оповещения.
+Проект резвернут на [Heroku](https://warning-devices-catalog.herokuapp.com/ "warning-devices-catalog").
 
 1. Каждое устройство оповещения имеет следующие параметры:
     - Название
@@ -28,6 +29,6 @@
 ## Использованные пакеты:
 + Django
 + djangorestframework
-+ django-filter (для фидьтрации результатов при запросе к api)
++ django-filter (для фильтрации результатов при запросе к api)
 + django-crispy-forms и crispy-bootstrap5 (для рендера форм в стилях bootstrap5)
 + psycopg2-binary (для подключения PostgreSQL)
