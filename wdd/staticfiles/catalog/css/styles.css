@@ -1,0 +1,6 @@
+.link-disabled, .link-disabled:hover {
+    color: currentColor;
+    cursor: default;
+    opacity: 0.5;
+    text-decoration: none;
+}
