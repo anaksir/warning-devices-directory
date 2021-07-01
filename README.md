@@ -2,11 +2,7 @@
 
 ## Что это:
 Небольшое веб-приложение на Django, обеспечивающее возможность работы со справочником устройств оповещения.
-<<<<<<< HEAD
-Проект резвернут на [Heroku](https://warning-devices-catalog.herokuapp.com/ "warning-devices-catalog").
-=======
 Проект резвернут на [Heroku](https://warning-devices-catalog.herokuapp.com/ "warning-devices-catalog")
->>>>>>> dev
 
 1. Каждое устройство оповещения имеет следующие параметры:
     - Название
